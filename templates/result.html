@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   
+    <meta charset="UTF-8">
+    <title>ALL SOLUTIONS TO YOUR NEEDS AT ONE PLACE</title>
+    
+    
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+
+<body>
+    
+    <header>
+        <h1 class="head">Your personalized skincare routine!! ✨💄</h1>
+        <button id="darkModeToggle">
+            <img id="toggleIcon" src="{{ url_for('static', filename='moon.png') }}" alt="Toggle Dark Mode" width="30" height="30">
+        </button>
+    </header>
+
+    
+    <div class="type result-box">
+        <p><strong>😳 SKIN TYPE:</strong> {{ skin_type }}</p>
+        <p><strong>👀 SKIN CONCERN:</strong> {{ concern }}</p>
+    </div>
+
+    
+    {% if morning_routine %}
+    <section class="routine-section">
+        <h2>🌞 Morning Routine</h2>
+        <div class="routine-cards">
+            {% for item in morning_routine %}
+                <div class="routine-card">💡 {{ item|safe }}</div>
+            {% endfor %}
+        </div>
+    </section>
+    {% endif %}
+
+    
+    {% if night_routine %}
+    <section class="routine-section">
+        <h2>🌙 Night Routine</h2>
+        <div class="routine-cards">
+            {% for item in night_routine %}
+                <div class="routine-card">💡 {{ item|safe }}</div>
+            {% endfor %}
+        </div>
+    </section>
+    {% endif %}
+
+    
+    {% if general_routine %}
+    <section class="routine-section">
+        <h2>🧼 General Routine</h2>
+        <div class="routine-cards">
+            {% for item in general_routine %}
+                <div class="routine-card">💡 {{ item|safe }}</div>
+            {% endfor %}
+        </div>
+    </section>
+    {% endif %}
+
+    
+    <blockquote class="quote">✨ "Great skin doesn’t happen by chance, it happens by routine." ✨</blockquote>
+
+    
+    <a href="/" class="back">Back to form</a>
+
+    
+    <script>
+        const togglebtn = document.getElementById("darkModeToggle");
+        const icon = document.getElementById("toggleIcon");
+        const body = document.body;
+
+        if (localStorage.getItem("dark-mode") === "enabled") {
+            body.classList.add("dark-mode");
+            icon.src = "/static/sun.png";
+        }
+
+        togglebtn.addEventListener("click", () => {
+            body.classList.toggle("dark-mode");
+            const isDark = body.classList.contains("dark-mode");
+            localStorage.setItem("dark-mode", isDark ? "enabled" : "disabled");
+            icon.src = isDark ? "/static/sun.png" : "/static/moon.png";
+        });
+    </script>
+</body>
+</html>

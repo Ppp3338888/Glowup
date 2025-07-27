@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+    <head>
+       <title>GLOWUP HERE: Skincare Recommender</title>
+       <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+
+    </head>
+    <body>
+        <button id="darkModeToggle">
+        <img id="toggleIcon" src="{{ url_for('static', filename='moon.png')}}" alt="Toggle Dark Mode" width="30" height="30">
+        </button>
+        <div class="head">
+        <h1>
+            WELCOME TO GLOWUP ✨💝
+        </h1>
+    </div>
+        <form action="/recommend" method="post">
+            <label for="skin_type">Select your skin type:</label>
+            <select id="skin_type" name="skin_type" required>
+                <option value="" disabled selected>Select your skin type</option>
+                <option value="oily">Oily</option>
+                <option value="dry">Dry</option>
+                <option value="combination">Combination</option>
+                <option value="sensitive">Sensitive</option>
+                <option value="normal">Normal</option>
+            </select>
+            <br><br>
+            <label for="concern">Main Skin Concern:</label>
+            <input list="concerns" id="concern" name="concern" placeholder="e.g. acne ,dryness">
+            <datalist id="concerns">
+                <option value="acne">
+                <option value="dullness">
+                <option value="blackheads">
+                <option value="glow">
+                <option value="redness">
+                <option value="wrinkles">
+                <option value="open pores">
+                <option value="dryness">
+                <option value="flaky">
+                <option value="sensitive">
+                <option value="irritation">
+                <option value="Uneven skintone">
+                
+                </datalist>
+            <p>❗️Skin Concern is not a compulsory field</p><br><br>
+            <input type="submit" value="Get Recommendations">   
+        </form>
+        <p>
+            All your skincare needs are answered here!!
+        </p>
+        <script>
+            const togglebtn=document.getElementById("darkModeToggle");
+            const icon=document.getElementById("toggleIcon");
+            const body=document.body; 
+            if(localStorage.getItem("dark-mode")==="enabled") {
+                body.classList.add("dark-mode");
+                icon.src="/static/sun.png";
+            }
+
+            togglebtn.addEventListener("click",() => {
+                body.classList.toggle("dark-mode");
+                const isDark=body.classList.contains("dark-mode");
+                localStorage.setItem("dark-mode",isDark?"enabled":"disabled");
+                icon.src=isDark? "/static/sun.png" : "/static/moon.png";
+            });
+        </script>
+    </body>
+</html>
